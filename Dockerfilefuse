@@ -1,0 +1,7 @@
+FROM centos:latest
+ADD /resources/jboss-fuse-full-6.2.1.redhat-084.zip /tmp/
+RUN yum -y update
+RUN yum -y install wget unzip java-1.7.0-openjdk-devel git which tar
+RUN useradd fuse
+RUN mkdir -m 777 -p /opt/fuse
+RUN unzip /tmp/jboss-fuse-full-6.2.1.redhat-084.zip -d /opt/fuse

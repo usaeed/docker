@@ -1,0 +1,16 @@
+# Dockerfile maven/base:v1
+# docker build --tag=”maven/base:v1” --file=”/opt/docker/Dockerfilemaven”
+
+FROM centos/base:v1
+MAINTAINER Usman Saeed <uzmansaeed@gmail.com>
+RUN cd /usr/local
+RUN wget ftp://mirror.reverse.net/pub/apache/maven/maven-3/3.3.1/binaries/apache-maven-3.3.1-bin.tar.gz
+RUN tar -xzvf apache-maven-3.3.1-bin.tar.gz -C /usr/local/
+RUN rm -rf apache-maven-3.3.1-bin.tar.gz
+RUN cd /usr/local/ && mv apache-maven-3.3.1 maven
+RUN echo 'export M2_HOME=/usr/local/maven' > /etc/profile.d/maven.sh
+RUN export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=128m" > /etc/profile.d/maven.sh
+RUN echo 'export PATH=${M2_HOME}/bin:${PATH}' >> /etc/profile.d/maven.sh
+RUN echo 'export PATH=${M2_HOME}:${PATH}' >> /etc/profile.d/maven.sh
+RUN source /etc/profile
+RUN mkdir -p ~/.m2

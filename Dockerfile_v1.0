@@ -1,0 +1,11 @@
+FROM centos:latest
+ADD /resources/jboss-fuse-full-6.2.1.redhat-084.zip /tmp/
+RUN yum -y update
+RUN yum -y install wget unzip java-1.7.0-openjdk-devel git which tar
+RUN useradd fuse
+RUN mkdir -m 777 -p /opt/fuse
+RUN unzip /tmp/jboss-fuse-full-6.2.1.redhat-084.zip -d /opt/fuse
+RUN sed -i '/#admin/s/^#//g' /opt/fuse/jboss-fuse-6.2.1.redhat-084/etc/users.properties
+RUN sed -i 's/root/fabric/g' /opt/fuse/jboss-fuse-6.2.1.redhat-084/etc/system.properties
+RUN echo 'bash /opt/fuse/jboss-fuse-6.2.1.redhat-084/bin/start' >> /root/.bashrc
+RUN export FUSE_HOME=/opt/fuse/jboss-fuse-6.2.1.redhat-084

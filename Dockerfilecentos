@@ -1,0 +1,8 @@
+# Dockerfile centos/base:v1
+# docker build --tag=”centos/base:v1” --file=”/opt/docker/Dockerfilecentos”
+
+FROM centos:latest
+MAINTAINER Usman Saeed <uzmansaeed@gmail.com>
+RUN yum -y update
+RUN yum -y install wget unzip java-1.7.0-openjdk-devel git which tar
+RUN export JAVA_HOME=/usr/bin export CLASSPATH=/usr/lib export PATH="$JAVA_HOME/bin:$PATH" 
